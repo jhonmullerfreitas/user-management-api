@@ -9,14 +9,15 @@ export class UsersController{
 
     constructor(private userService: UsersService) {}
 
-    @Post()
-    async create(@Body() createUserDto: CreateUserDto){
-        this.userService.create(createUserDto);
-    }
-
     @Get('hello')
     async sayHelloUsers() {
         return this.userService.helloUsers();
+    }
+
+    @Post()
+    async create(@Body() createUserDto: CreateUserDto){
+        console.log(createUserDto)
+        this.userService.create(createUserDto);
     }
 
     @Get()
