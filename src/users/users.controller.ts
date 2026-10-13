@@ -1,8 +1,7 @@
-import {Controller, Get, Post, Body, Param} from "@nestjs/common";
+import {Controller, Get, Post, Body, Param, Delete} from "@nestjs/common";
 import { UsersService } from "./users.services";
-import { CreateUserDto } from "./dto/user.dto";
+import { CreateUserDto, FindUserByEmail } from "./dto/user.dto";
 import { User } from "./interfaces/user.interface";
-
 
 @Controller('users')
 export class UsersController{
@@ -15,8 +14,7 @@ export class UsersController{
     }
 
     @Post()
-    async create(@Body() createUserDto: CreateUserDto){
-        console.log(createUserDto)
+    async createUser(@Body() createUserDto: CreateUserDto){
         this.userService.create(createUserDto);
     }
 
@@ -25,8 +23,13 @@ export class UsersController{
         return this.userService.findAll();
     }
 
-    @Get(':id')
-    getUserById(@Param('id') id: string) {
-        return `This action returns a user by ${id}`;
+    @Get('/findUserByEmail')
+    async getUserByEmail(@Body() findUserByEmail: FindUserByEmail): Promise<string> {
+        return this.userService.findOne(findUserByEmail.email)
+    }
+
+    @Delete('/deleteUserByEmail')
+    async deleteUserByEmail(@Body() findUserByEmail: FindUserByEmail): Promise<string> {
+        return this.userService.deleteUser(findUserByEmail.email)
     }
 }
