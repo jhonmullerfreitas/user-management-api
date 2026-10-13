@@ -16,4 +16,12 @@ export class UsersService {
     findAll(): User[] {
         return this.users;
     }
+
+    findOne(email: string) {
+        return 'Service de user funcionando'
+    }
+
+    deleteUser(email: string) {
+        return 'Delete de User Service funcionando'
+    }
 }
